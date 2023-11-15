@@ -14,10 +14,8 @@ type Fruit =
       color: "orange";
     };
 
-type TransformedFruit = unknown;
+type TransformedFruit = {
+  [K in Fruit as K["name"]]: `${K["name"]}:${K["color"]}`;
+}[Fruit["name"]];
 
-type tests = [
-  Expect<
-    Equal<TransformedFruit, "apple:red" | "banana:yellow" | "orange:orange">
-  >,
-];
+type tests = [Expect<Equal<TransformedFruit, "apple:red" | "banana:yellow" | "orange:orange">>];
